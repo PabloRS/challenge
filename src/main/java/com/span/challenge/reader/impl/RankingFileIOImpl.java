@@ -1,11 +1,15 @@
 package com.span.challenge.reader.impl;
 
+import com.span.challenge.constants.ConstantsUtils;
 import com.span.challenge.exception.RankingFileException;
+import com.span.challenge.model.Ranking;
 import com.span.challenge.reader.RankingFileIO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,25 +21,28 @@ import java.util.List;
 public class RankingFileIOImpl implements RankingFileIO {
 
     @Override
-    public void readInputFile(String path) {
+    public List<String> readInputFile(String path) {
         log.traceEntry("Reading file {}", path);
+        List<String> lines;
         try {
-            List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
-            Iterator it = lines.listIterator();
-            while(it.hasNext()) {
-                System.out.println(it.next());
-            }
+            lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
         } catch (IOException ex) {
             log.error("Error reading file {}", ex.getMessage());
-
             throw new RankingFileException("Please provide a valid input file", ex);
-
         }
-        log.traceExit();
+        return log.traceExit(lines);
     }
 
     @Override
-    public void writeOutputFile() {
-
+    public void writeOutputFile(List<Ranking> outputRanking) throws RankingFileException, IOException {
+        log.traceEntry("Writing output file with results {}", outputRanking);
+            String pathFile = String.format("%s%s", System.getProperty("user.home"), ConstantsUtils.OUTPUT_FILE);
+            FileWriter fileWriter = new FileWriter(pathFile);
+            PrintWriter printWriter  = new PrintWriter(fileWriter);
+            for(Ranking r: outputRanking) {
+                printWriter.println(r.toString());
+            }
+            printWriter.close();
+        log.traceExit();
     }
 }

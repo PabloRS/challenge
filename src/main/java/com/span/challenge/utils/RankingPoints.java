@@ -1,4 +1,4 @@
-package com.span.challenge;
+package com.span.challenge.utils;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,8 +1,13 @@
 package com.span.challenge.reader;
 
+import com.span.challenge.model.Ranking;
+
+import java.io.IOException;
+import java.util.List;
+
 public interface RankingFileIO {
 
-    void readInputFile(String path);
+    List<String> readInputFile(String path);
 
-    void writeOutputFile();
+    void writeOutputFile(List<Ranking> outputRanking) throws IOException;
 }

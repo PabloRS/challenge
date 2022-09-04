@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
 import java.util.List;
 
 @Log4j2
@@ -37,6 +36,7 @@ public class RankingFileIOImpl implements RankingFileIO {
     public void writeOutputFile(List<Ranking> outputRanking) throws RankingFileException, IOException {
         log.traceEntry("Writing output file with results {}", outputRanking);
             String pathFile = String.format("%s%s", System.getProperty("user.home"), ConstantsUtils.OUTPUT_FILE);
+            log.info("Writing file to {}", pathFile);
             FileWriter fileWriter = new FileWriter(pathFile);
             PrintWriter printWriter  = new PrintWriter(fileWriter);
             for(Ranking r: outputRanking) {

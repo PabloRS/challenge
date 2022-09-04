@@ -2,10 +2,10 @@ package com.span.challenge.utils;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Configuration;
 
 @Data
-@Service
+@Configuration
 public class RankingPoints {
     private final int tiePoints;
     private final int winPoints;

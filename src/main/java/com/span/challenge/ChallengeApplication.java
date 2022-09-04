@@ -3,9 +3,8 @@ package com.span.challenge;
 import com.span.challenge.exception.RankingFileException;
 import com.span.challenge.model.Ranking;
 import com.span.challenge.reader.impl.RankingFileIOImpl;
-import com.span.challenge.service.RankingService;
 import com.span.challenge.service.impl.RankingServiceImpl;
-import com.span.challenge.utils.RankingPoints;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +16,7 @@ import java.util.List;
 
 import static com.span.challenge.constants.ConstantsUtils.DEFAULT_INPUT_FILE;
 
+@Log4j2
 @SpringBootApplication(scanBasePackages = "com.span.challenge")
 @EnableAutoConfiguration
 public class ChallengeApplication implements CommandLineRunner {
@@ -34,6 +34,7 @@ public class ChallengeApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws RankingFileException, IOException {
+		log.info("Starting application");
 		String path = DEFAULT_INPUT_FILE;
 		for (int i = 0; i < args.length; ++i) {
 			if(i == 0)
@@ -42,5 +43,6 @@ public class ChallengeApplication implements CommandLineRunner {
 		List<String> input = rankingFile.readInputFile(path);
 		List<Ranking> results = rankingService.calculateRanking(input);
 		rankingFile.writeOutputFile(results);
+		log.info("Exit application");
 	}
 }

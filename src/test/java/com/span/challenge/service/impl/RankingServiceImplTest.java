@@ -40,4 +40,65 @@ class RankingServiceImplTest {
         assertEquals(input.size(), output.size());
     }
 
+    @DisplayName("Test calculate ranking and list is ordered by rank")
+    @Test
+    public void calculateRanking_And_ListOrderedTest() {
+        String pathFile = "src/test/resources/input/input.txt";
+        List<String> input = null;
+        List<Ranking> output = null;
+        try {
+            input = Files.readAllLines(Paths.get(pathFile), StandardCharsets.UTF_8);
+            output = rankingService.calculateRanking(input);
+        } catch (IOException ex) {
+
+        }
+
+        long r = output.iterator().next().getRank();
+        for (Ranking i : output) {
+            assertTrue(i.getRank() <= r);
+            r = i.getRank();
+        }
+    }
+
+    @DisplayName("Test calculate ranking and list is ordered by points")
+    @Test
+    public void calculateRanking_And_ListOrdered_By_Points() {
+        String pathFile = "src/test/resources/input/input.txt";
+        List<String> input = null;
+        List<Ranking> output = null;
+        try {
+            input = Files.readAllLines(Paths.get(pathFile), StandardCharsets.UTF_8);
+            output = rankingService.calculateRanking(input);
+        } catch (IOException ex) {
+
+        }
+
+        long r = output.iterator().next().getPoints();
+        for (Ranking i : output) {
+            assertTrue(i.getPoints() <= r);
+            r = i.getPoints();
+        }
+    }
+
+    @DisplayName("Test calculate ranking and list is ordered by name")
+    @Test
+    public void calculateRanking_And_ListOrdered_By_Name() {
+        String pathFile = "src/test/resources/input/input.txt";
+        List<String> input = null;
+        List<Ranking> output = null;
+        try {
+            input = Files.readAllLines(Paths.get(pathFile), StandardCharsets.UTF_8);
+            output = rankingService.calculateRanking(input);
+        } catch (IOException ex) {
+
+        }
+
+        String r = output.iterator().next().getTeam();
+        for (Ranking i : output) {
+            assertTrue(i.getTeam().compareToIgnoreCase(r) >= 0);
+            r = i.getTeam();
+        }
+    }
+
+
 }

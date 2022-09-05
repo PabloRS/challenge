@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Artifact
           command: |
-            mkdir /tmp/artifacts
+            mkdir -p /tmp/artifacts
             cp ~/project/target/*.jar /tmp/artifacts
           when: on_fail
       - store_artifacts:

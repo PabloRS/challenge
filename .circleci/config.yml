@@ -16,6 +16,8 @@ jobs:
           command: mvn -B clean package
       - store_artifacts:
           path: ~/project/target
+      - store_test_results:
+          path: ~/project/target/surefire-reports
 
 workflows:
   app:

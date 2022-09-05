@@ -14,14 +14,8 @@ jobs:
       - run:
           name: Build
           command: mvn -B clean package
-      - run:
-          name: Artifact
-          command: |
-            mkdir -p /tmp/artifacts
-            cp ~/project/target/*.jar /tmp/artifacts
-          when: on_fail
       - store_artifacts:
-          path: /tmp/artifacts
+          path: ~/project/target
 
 workflows:
   app:

@@ -59,7 +59,7 @@ public class RankingServiceImpl implements RankingService {
         Ranking team1 = new Ranking();
         Ranking team2 = new Ranking();
 
-        int p = 0;
+        int p;
         p = inputTeams[0].lastIndexOf(" ");
         team1.setTeam(inputTeams[0].substring(0, p).trim());
         team1.setPoints(Integer.parseInt(inputTeams[0].substring(p).trim()));
@@ -80,6 +80,11 @@ public class RankingServiceImpl implements RankingService {
             team2.setPoints(rankingPoints.getTiePoints());
         }
 
+        insertTeamAndCountPoints(team1, team2);
+
+    }
+
+    private void insertTeamAndCountPoints(Ranking team1, Ranking team2) {
         if(positions.containsKey(team1.getTeam())) {
             positions.put(team1.getTeam(), team1.getPoints()+positions.get(team1.getTeam()));
         } else {
@@ -91,7 +96,6 @@ public class RankingServiceImpl implements RankingService {
         } else {
             positions.put(team2.getTeam(), team2.getPoints());
         }
-
     }
 
 }
